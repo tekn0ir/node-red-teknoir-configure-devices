@@ -4,12 +4,11 @@
         color: '#a6bbcf',
         defaults: {
             name: {value:""},
-            // device: {value:"",required:true},
             devices: {value:[],required:true},
         },
         inputs:1,
         outputs:0,
-        icon: "file.png",
+        icon: "tn_dark.svg",
         label: function() {
             return this.name||"configure-device";
         },
@@ -21,11 +20,9 @@
             const devices_select = document.getElementById('node-input-devices');
 
             devices_select.innerHTML = '';
-            // devices_select.appendChild(document.createElement('option'));
             $.getJSON('node-red-teknoir-configure-devices', function(names) {
                 console.log(names);
                 names.forEach(name => {
-                    // devices_select.appendChild('<option value="' + name + '">' + name + '</option>');
                     const option = document.createElement('option');
                     option.value = name;
                     option.selected = name in selected_devices;
@@ -34,25 +31,6 @@
                     devices_select.appendChild(option);
                 });
             });
-
-            // var xhr = new XMLHttpRequest();
-            // xhr.open('GET', 'node-red-teknoir-configure-devices/' + this.id + '/devices');
-            // xhr.send();
-            // xhr.onload = function() {
-            //     if (xhr.status != 200) { // analyze HTTP status of the response
-            //         this.error(`Error ${xhr.status}: ${xhr.statusText}`);
-            //     } else {
-            //         names = xhr.response;
-            //         names.forEach(name => {
-            //             const option = document.createElement('option');
-            //             option.value = name;
-            //             option.selected = name in selected_devices;
-            //             const textNode = document.createTextNode(name);
-            //             option.appendChild(textNode);
-            //             devices_select.appendChild(option);
-            //         });
-            //     }
-            // };
         },
     });
 </script>
@@ -62,18 +40,19 @@
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
-<!--    <div class="form-row">-->
-<!--        <label for="node-input-device"><i class="icon-tag"></i> Device Name</label>-->
-<!--        <input type="text" id="node-input-device" placeholder="Device Name">-->
-<!--    </div>-->
     <div class="form-row">
-        <label for="node-input-devices"><i class="fa fa-cogs"></i> Device</label>
-        <select id="node-input-devices" multiple="multiple" style="width:100%; margin-right:5px;">
+        <label for="node-input-devices"><i class="fa fa-cogs"></i> Select Devices</label>
+        <select id="node-input-devices" multiple="multiple" style="width:100%; height:200px; margin-right:5px; margin-bottom:5px;">
             <option placeholder=""></option>
         </select>
     </div>
 </script>
 
 <script type="text/html" data-help-name="configure-device">
+    <p>Please be aware that the platform is in aplha state and is undergoing development.
+        Things will change over time and features will be added as we go.</p>
     <p>A node that takes input from device configuration nodes and updates one or more devices when deployed.</p>
+    <p>Multiple nodes can be connected to one <code>configure-device</code> node to set up a micro service
+        architecture on the device. See the example, called <code>teknoir-device-configuration-example</code>,
+        that can be imported from the menu.</p>
 </script>

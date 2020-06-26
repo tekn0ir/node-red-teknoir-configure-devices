@@ -32,7 +32,7 @@ spec:
         },
         inputs:0,
         outputs:1,
-        icon: "file.png",
+        icon: "tn_dark.svg",
         label: function() {
             return this.name||"add-app";
         },
@@ -103,5 +103,13 @@ spec:
 </script>
 
 <script type="text/html" data-help-name="add-app">
-    <p>A node that when connected to a device node, adds an app.</p>
+    <p>Please be aware that the platform is in aplha state and is undergoing development.
+        Things will change over time and features will be added as we go.</p>
+    <p>A node that when connected to a device node, configures the workload, an app, on the device.</p>
+    <p>The manifest for the workload only supports one kubernetes deployment per node. See official kubernetes
+        <a target="_blank" href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">
+            deployment documentation</a>.</p>
+    <p>Multiple nodes can be connected to one <code>configure-device</code> node to set up a micro service
+        architecture on the device. See the example, called <code>teknoir-device-configuration-example</code>,
+        that can be imported from the menu.</p>
 </script>

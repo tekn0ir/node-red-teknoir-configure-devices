@@ -9,7 +9,7 @@
   },
   "main": "node_modules/node-red/red/red.js",
   "scripts": {
-    "start": "node $NODE_OPTIONS node_modules/node-red/red.js $FLOWS"
+    "start": "node $NODE_OPTIONS node_modules/node-red/red.js --userDir ./data -v"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
