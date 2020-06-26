@@ -118,7 +118,7 @@ module.exports = function (RED) {
         }
 
         try {
-            var context = RED.util.parseContextStore(this.device);
+            var context = RED.util.parseContextStore(this.id);
             var target = this.context()["global"];
             target.set(context.key, [], context.store, function (err) {
                 if (err) {
