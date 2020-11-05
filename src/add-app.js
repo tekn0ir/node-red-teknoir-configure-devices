@@ -7,6 +7,8 @@ module.exports = function (RED) {
         this.template = config.template;
         this.onceDelay = 0.1 * 1000;
 
+        node.status({});
+
         this.onceTimeout = setTimeout( function() {
             node.emit("input",{});
         }, this.onceDelay);
@@ -17,7 +19,6 @@ module.exports = function (RED) {
             node.send(msg);
         }
 
-
         node.on('input', function (msg) {
             try {
                 var template = node.template;
@@ -25,6 +26,7 @@ module.exports = function (RED) {
             }
             catch(err) {
                 node.error(err.message, msg);
+                node.status({fill: "red", shape: "dot", text: err});
             }
         });
     }
