@@ -75,18 +75,18 @@ module.exports = function (RED) {
                                                     // console.log(device);
                                                     try {
                                                         // device.body.spec.manifest.apps.items = val;
-                                                        device.spec.manifest.apps.items = JSON.parse(JSON.stringify(val));
-                                                        device.spec.manifest.apps.items.forEach(manifest => {
+                                                        device.body.spec.manifest.apps.items = JSON.parse(JSON.stringify(val));
+                                                        device.body.spec.manifest.apps.items.forEach(manifest => {
                                                             manifest.spec.template.spec.containers.forEach(container => {
                                                                 if (!container.hasOwnProperty('env')) {
                                                                     container['env'] = [];
                                                                 }
-                                                                container.env.push({ name: 'LABEL_DEVICE_ID', value: device.metadata.name });
+                                                                container.env.push({ name: 'LABEL_DEVICE_ID', value: device.body.metadata.name });
                                                                 container.env.push({ name: 'LABEL_NAMESPACE', value: namespace });
-                                                                Object.keys(device.metadata.labels).forEach(key => {
+                                                                Object.keys(device.body.metadata.labels).forEach(key => {
                                                                     container.env.push({
                                                                         name: 'LABEL_'+key.toLocaleUpperCase(),
-                                                                        value: device.metadata.labels[key]
+                                                                        value: device.body.metadata.labels[key]
                                                                     });
                                                                 })
                                                             })
@@ -108,6 +108,7 @@ module.exports = function (RED) {
                                                 }
                                             })
                                     });
+                                    node.status({fill: "green", shape: "dot", text: "Updated: \n" + node.devices.map(device => device + " \n")});
                                 }
                             }
                         });
